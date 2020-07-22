@@ -29,8 +29,8 @@ public class SubStringSearch {
         int current = 0;
         for (int j = 0; j < charArr.size(); j++) {
             current = j;
-            for (int i = j; i < charArr.size() - 1; i++) {
-                if (Character.compare(charArr.get(current), charArr.get(i)) < 1) {
+            for (int i = j; i < charArr.size(); i++) {
+                if (Character.compare(charArr.get(current), charArr.get(i)) <= 1) {
                     result.append(charArr.get(i));
                     current = i;
                 }
