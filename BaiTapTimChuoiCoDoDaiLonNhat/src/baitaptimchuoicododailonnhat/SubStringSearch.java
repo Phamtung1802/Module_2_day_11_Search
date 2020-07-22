@@ -10,8 +10,7 @@ public class SubStringSearch {
     private Scanner scan;
     private String stringInput;
     public ArrayList<Character> charArr;
-    public StringBuffer result, max;
-
+    public StringBuffer result, max, continuousResult,maxContinuousResult;
     public SubStringSearch() {
         scan = new Scanner(System.in);
         charArr = new ArrayList<Character>();
@@ -19,7 +18,8 @@ public class SubStringSearch {
         result = new StringBuffer();
         System.out.println("Input String");
         stringInput = scan.nextLine();
-
+        maxContinuousResult=new StringBuffer();
+        continuousResult=new StringBuffer();
         for (int i = 0; i < stringInput.length(); i++) {
             charArr.add(stringInput.charAt(i));
         }
@@ -38,11 +38,29 @@ public class SubStringSearch {
             if (result.length() >= max.length()) {
                 max.delete(0, max.length());
                 max.append(result);
-                result.delete(0, result.length());
-            } else {
-                result.delete(0, result.length());
             }
+            result.delete(0, result.length());
         }
         return max;
+    }
+
+    public StringBuffer returnContinuousResult() {
+        for (int j = 0; j < charArr.size(); j++) {
+            continuousResult.append(charArr.get(j));
+            for (int i = j; i < charArr.size()-1; i++) {
+
+                if (Character.compare(charArr.get(i), charArr.get(i+1)) <= 1) {
+                    continuousResult.append(charArr.get(i+1));
+                }
+                else break;
+            }
+
+            if (continuousResult.length() >= maxContinuousResult.length()) {
+                maxContinuousResult.delete(0, maxContinuousResult.length());
+                maxContinuousResult.append(continuousResult);
+            }
+            continuousResult.delete(0, continuousResult.length());
+        }
+        return maxContinuousResult;
     }
 }
